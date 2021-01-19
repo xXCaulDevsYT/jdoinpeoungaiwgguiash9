@@ -50,7 +50,7 @@ class main extends PluginBase{
                     }
                     
                     $player->teleport($level->getSpawnLocation());
-                    $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function (int $currentTick) use ($pos, $player) {
+                    $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function (int $currentTick) use ($pos, $player) : void {
                         $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
                         $pk = new PlaySoundPacket();
                         $pk->x = $player->getX();
