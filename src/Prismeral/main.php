@@ -10,6 +10,7 @@ namespace Prismeral;
   use pocketmine\level\Position;
   use pocketmine\level\particle\HugeExplodeSeedParticle;
   use pocketmine\network\mcpe\protocol\PlaySoundPacket;
+  use pocketmine\scheduler\ClosureTask;
   use pocketmine\math\Vector3;
   use jojoe77777\FormAPI\FormAPI;
 
@@ -35,26 +36,34 @@ class main extends PluginBase{
     }
     switch($veri){
         case 0:
-          $a = $player->getX();
-		      $b = $player->getY();
-		      $c = $player->getZ();
-		      $pos = new Vector3($a, $b, $c);
-        $player->sendMessage("§l§8(§b!§8) §r§7You have boarded the portal to §eSpawn§7!");
-        $level = Server::getInstance()->getLevelByName("Spawn");
-	if ($level === null) return;
-        $player->teleport($level->getSpawnLocation());
-        $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
-        $pk = new PlaySoundPacket();
-                    $pk->x = $a;
-                    $pk->y = $b;
-                    $pk->z = $c;
-                    $pk->pitch = 1;
-                    $pk->volume = 1;
-                    $pk->soundName = 'mob.enderman.portal';
-                    $player->sendDataPacket($pk);
-        break;
-      
-    }
+                    $a = $player->getX();
+                    $b = $player->getY();
+                    $c = $player->getZ();
+                    $pos = new Vector3($a, $b, $c);
+                    
+                    $player->sendMessage("§l§8(§b!§8) §r§7You have boarded the portal to §eSpawn§7!")
+                    ;
+                    $level = Server::getInstance()->getLevelByName("Spawn");
+                    if ($level === null){
+                        $player->sendMessage("World doesn't exists");
+                        return;
+                    }
+                    
+                    $player->teleport($level->getSpawnLocation());
+                    $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function (int $currentTick) use ($pos, $player) {
+                        $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
+                        $pk = new PlaySoundPacket();
+                        $pk->x = $player->getX();
+                        $pk->y = $player->getY();
+                        $pk->z = $player->getZ();
+                        $pk->pitch = 1;
+                        $pk->volume = 5;
+                        $pk->soundName = 'mob.enderman.portal';
+                        $player->sendDataPacket($pk);
+                    }), 20);
+                    break;
+
+            }
     });
   $form->setTitle("Skyblock Portal");
   $form->addButton("§7[§dSpawn§7]");
