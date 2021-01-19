@@ -9,6 +9,7 @@ namespace Prismeral;
   use pocketmine\Server; 
   use pocketmine\level\Position;
   use pocketmine\level\particle\HugeExplodeSeedParticle;
+  use pocketmine\network\mcpe\protocol\PlaySoundPacket;
   use pocketmine\math\Vector3;
   use jojoe77777\FormAPI\FormAPI;
 
@@ -41,6 +42,13 @@ class main extends PluginBase{
         $player->sendMessage("§l§8(§b!§8) §r§7You have boarded the portal to §eSpawn§7!");
         $player->teleport(new Position(Server::getInstance()->getLevelByName("Spawn")->getSpawnLocation()));
         $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
+        $pk->x = "256";
+        $pk->y = "82";
+        $pk->z = "256";
+        $pk->pitch = 1;
+        $pk->volume = 1;
+        $pk->soundName = 'mob.enderman.portal';
+        $player->sendDataPacket($pk);
         break;
       
     }
