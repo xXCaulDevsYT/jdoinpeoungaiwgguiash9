@@ -40,11 +40,12 @@ class main extends PluginBase{
 		      $c = $player->getZ();
 		      $pos = new Vector3($a, $b, $c);
         $player->sendMessage("§l§8(§b!§8) §r§7You have boarded the portal to §eSpawn§7!");
-        $player->teleport(new Position(Server::getInstance()->getLevelByName("StrikeOfDark")->getSpawnLocation()));
+        if ($level === null) return;
+        $player->teleport($level->getLevelByName("StrikeOfDark")->getSpawnLocation());
         $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
-        $pk->x = "257";
+        $pk->x = "256";
         $pk->y = "82";
-        $pk->z = "257";
+        $pk->z = "256";
         $pk->pitch = 1;
         $pk->volume = 1;
         $pk->soundName = 'mob.enderman.portal';
