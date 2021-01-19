@@ -1,0 +1,10 @@
+name: TG_WarpUI
+main: Prismeral\main
+version: 1.0.0
+api: 3.15.4
+author: Prismeral
+description: Warp user interface for titanium games.
+commands:
+ warp:
+  description: Warp interface for titanium games.
+  usage: "/warp"
