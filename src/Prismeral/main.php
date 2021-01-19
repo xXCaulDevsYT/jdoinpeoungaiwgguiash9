@@ -34,13 +34,8 @@ class main extends PluginBase{
     }
     switch($veri){
         case 0:
-          $a = $player->getX();
-		      $b = $player->getY();
-		      $c = $player->getZ();
-		      $pos = new Vector3($a, $b, $c);
         $player->sendMessage("§l§8(§b!§8) §r§7You have boarded the portal to §eSpawn§7!");
         $player->teleport(new Position(x, y, z, Server::getInstance()->getLevelByName("Spawn")));
-        $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
         break;
       
     }
