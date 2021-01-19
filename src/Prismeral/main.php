@@ -44,6 +44,7 @@ class main extends PluginBase{
 	if ($level === null) return;
         $player->teleport($level->getSpawnLocation());
         $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
+        $pk = new PlaySoundPacket();
         $pk->x = "256";
         $pk->y = "82";
         $pk->z = "256";
