@@ -45,13 +45,13 @@ class main extends PluginBase{
         $player->teleport($level->getSpawnLocation());
         $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
         $pk = new PlaySoundPacket();
-        $pk->x = "256";
-        $pk->y = "82";
-        $pk->z = "256";
-        $pk->pitch = 1;
-        $pk->volume = 1;
-        $pk->soundName = 'mob.enderman.portal';
-        $player->sendDataPacket($pk);
+                    $pk->x = $a;
+                    $pk->y = $b;
+                    $pk->z = $c;
+                    $pk->pitch = 1;
+                    $pk->volume = 1;
+                    $pk->soundName = 'mob.enderman.portal';
+                    $player->sendDataPacket($pk);
         break;
       
     }
