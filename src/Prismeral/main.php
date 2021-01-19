@@ -40,6 +40,9 @@ class main extends PluginBase{
 		      $c = $player->getZ();
 		      $pos = new Vector3($a, $b, $c);
         $player->sendMessage("§l§8(§b!§8) §r§7You have boarded the portal to §eSpawn§7!");
+		    if($level === null){
+                     return
+                    }
         $player->teleport($this->getServer()->getLevelByName("StrikeOfDark")->getSpawnLocation());
         $player->getLevel()->addParticle(new HugeExplodeSeedParticle($pos), [$player]);
         $pk->x = "256";
